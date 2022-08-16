@@ -39,6 +39,12 @@ class Arrays implements ArraysInterface
 
         return $output;
     }
-
+<<<<<<< HEAD
+<<<<<<< HEAD
 }
-
+=======
+}
+>>>>>>> HEAD@{2}
+=======
+}
+>>>>>>> 81e274f63290a938b85637312cccfde69bca48b5
