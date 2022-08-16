@@ -12,7 +12,7 @@ class BasicsValidator implements BasicsValidatorInterface
     public function isMinutesException(int $minute): void
     {
         if ($minute < 0 || $minute > 60) {
-            throw new \InvalidArgumentException();
+            throw new InvalidArgumentException();
         }
     }
 
@@ -22,7 +22,7 @@ class BasicsValidator implements BasicsValidatorInterface
     public function isYearException(int $year): void
     {
         if ($year < 1900) {
-            throw new \InvalidArgumentException();
+            throw new InvalidArgumentException();
         }
     }
 
@@ -32,7 +32,7 @@ class BasicsValidator implements BasicsValidatorInterface
     public function isValidStringException(string $input): void
     {
         if (strlen($input) !== 6) {
-            throw new \InvalidArgumentException();
+            throw new InvalidArgumentException();
         }
     }
 
