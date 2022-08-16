@@ -4,16 +4,15 @@ namespace strings;
 
 class Strings implements StringsInterface
 {
-
     public function snakeCaseToCamelCase(string $input): string
     {
         $arrayInput = explode('_', $input);
         $camelCase = lcfirst($arrayInput[0]);
+        unset($arrayInput[0]);
 
         foreach ($arrayInput as $key => $string) {
-            if ($key != 0) {
-                $camelCase .= ucfirst($string);
-            }
+            $camelCase .= ucfirst($string);
+
         }
 
         return $camelCase;
