@@ -35,5 +35,4 @@ class BasicsValidator implements BasicsValidatorInterface
             throw new InvalidArgumentException();
         }
     }
-
 }
