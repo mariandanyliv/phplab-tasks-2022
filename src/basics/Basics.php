@@ -5,18 +5,16 @@ use InvalidArgumentException;
 
 class Basics implements BasicsInterface
 {
+    private const FIRST = 'first';
 
-    protected const FIRST = 'first';
+    private const SECOND = 'second';
 
-    protected const SECOND = 'second';
+    private const THIRD = 'third';
 
-    protected const THIRD = 'third';
-
-    protected const FOURTH = 'fourth';
+    private const FOURTH = 'fourth';
 
     public function __construct(private BasicsValidatorInterface $validator)
     {
-
     }
 
     /**
@@ -25,6 +23,7 @@ class Basics implements BasicsInterface
     public function getMinuteQuarter(int $minute): string
     {
         $this->validator->isMinutesException($minute);
+
         return match (isset($minute)) {
             $minute > 45 || $minute == 0 => self::FOURTH,
             $minute > 30 =>  self::THIRD,
