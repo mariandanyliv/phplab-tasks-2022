@@ -18,6 +18,7 @@
  */
 
 namespace functions;
+use InvalidArgumentException;
 
 class Functions
 {
@@ -57,7 +58,9 @@ class Functions
      */
     public function sayHelloArgumentWrapper($arg): string
     {
-        // put your code here
+        if  (!is_scalar($arg)) {
+            throw new InvalidArgumentException();
+        }
 
         return $this->sayHelloArgument($arg);
     }
@@ -86,11 +89,17 @@ class Functions
      * You will need to use "Argument unpacking via ..." to pass the parameters to wrapped function:
      * @see https://www.php.net/manual/en/migration56.new-features.php#migration56.new-features.splat
      *
+     * @param mixed ...$args
      * @return array
-     * @throws \InvalidArgumentException
      */
-    public function countArgumentsWrapper(): array
+    public function countArgumentsWrapper(...$args): array
     {
-        // put your code here
+        foreach($args as $arg) {
+            if (!is_string($arg)) {
+                throw new InvalidArgumentException;
+            }
+        }
+
+        return $this->countArguments();
     }
 }
