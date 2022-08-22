@@ -1,9 +1,11 @@
 <?php
 
-namespace functions;
+namespace Tests;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use functions\functions;
+
 
 class CountArgumentsWrapperTest extends TestCase
 {
@@ -17,6 +19,7 @@ class CountArgumentsWrapperTest extends TestCase
     public function testNegative()
     {
         $this->expectException(InvalidArgumentException::class);
+
         $this->functions->countArgumentsWrapper('Hello', [1, 2, 3]);
     }
 }

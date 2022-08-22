@@ -18,6 +18,7 @@
  */
 
 namespace functions;
+
 use InvalidArgumentException;
 
 class Functions
@@ -58,8 +59,8 @@ class Functions
      */
     public function sayHelloArgumentWrapper($arg): string
     {
-        if  (!is_scalar($arg)) {
-            throw new InvalidArgumentException();
+        if  (! is_scalar($arg)) {
+            throw new InvalidArgumentException('Type error');
         }
 
         return $this->sayHelloArgument($arg);
@@ -95,8 +96,8 @@ class Functions
     public function countArgumentsWrapper(...$args): array
     {
         foreach($args as $arg) {
-            if (!is_string($arg)) {
-                throw new InvalidArgumentException;
+            if (! is_string($arg)) {
+                throw new InvalidArgumentException('arg not string');
             }
         }
 

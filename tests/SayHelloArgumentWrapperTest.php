@@ -1,6 +1,10 @@
 <?php
 
+namespace Tests;
+
 use PHPUnit\Framework\TestCase;
+use functions\functions;
+
 
 class SayHelloArgumentWrapperTest extends TestCase
 {
@@ -8,7 +12,7 @@ class SayHelloArgumentWrapperTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->function = new functions\Functions();
+        $this->function = new Functions();
     }
 
     public function testNegative()
@@ -16,5 +20,10 @@ class SayHelloArgumentWrapperTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $this->function->sayHelloArgumentWrapper(['Say Hello']);
+    }
+
+    public function testPositive()
+    {
+        $this->assertEquals('Hello world!', $this->function->sayHelloArgumentWrapper('world!'));
     }
 }

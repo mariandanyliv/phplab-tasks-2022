@@ -1,6 +1,10 @@
 <?php
 
+namespace Tests;
+
 use PHPUnit\Framework\TestCase;
+use functions\functions;
+
 
 class SayHelloTest extends TestCase
 {
@@ -8,7 +12,7 @@ class SayHelloTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->function = new functions\Functions();
+        $this->function = new Functions();
     }
 
     public function testPositive()

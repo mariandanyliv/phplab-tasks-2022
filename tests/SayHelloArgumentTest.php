@@ -1,8 +1,9 @@
 <?php
 
-namespace functions;
+namespace Tests;
 
 use PHPUnit\Framework\TestCase;
+use functions\functions;
 
 class sayHelloArgumentTest extends TestCase
 {
@@ -27,6 +28,8 @@ class sayHelloArgumentTest extends TestCase
             ['world!', 'Hello world!'],
             ['', 'Hello '],
             ['світ', 'Hello світ'],
+            [1, 'Hello 1'],
+            [1.2, 'Hello 1.2'],
         ];
     }
 }
