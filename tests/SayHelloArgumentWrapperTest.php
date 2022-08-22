@@ -4,6 +4,7 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use functions\functions;
+use InvalidArgumentException;
 
 
 class SayHelloArgumentWrapperTest extends TestCase
