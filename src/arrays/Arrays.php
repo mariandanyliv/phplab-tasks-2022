@@ -5,8 +5,8 @@ namespace arrays;
 class Arrays implements ArraysInterface
 {
     /**
-     * @param array{name:int,type:int[]} $input
-     * @return array{}
+     * @param  array  $input
+     * @return array
      */
     public function repeatArrayValues(array $input): array
     {
@@ -21,8 +21,8 @@ class Arrays implements ArraysInterface
     }
 
     /**
-     * @param array{name:int,type:int[]} $input
-     * @return array{}
+     * @param  array  $input
+     * @return int
      */
     public function getUniqueValue(array $input): int
     {
@@ -35,14 +35,14 @@ class Arrays implements ArraysInterface
     }
 
     /**
-     * @param array{name:string,type:string[]} $input
-     * @return array{}
+     * @param  array  $input
+     * @return array
      */
     public function groupByTag(array $input): array
     {
         asort($input);
         $output = [];
-        foreach ($input as $key => $val) {
+        foreach ($input as $val) {
             foreach ($val['tags'] as $tag) {
                 $output[$tag][] = $val['name'];
             }
