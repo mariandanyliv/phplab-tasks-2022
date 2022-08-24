@@ -5,7 +5,7 @@ namespace arrays;
 class Arrays implements ArraysInterface
 {
     /**
-     * @param  array  $input
+     * @param  array $input array of digits
      * @return array
      */
     public function repeatArrayValues(array $input): array
@@ -21,7 +21,7 @@ class Arrays implements ArraysInterface
     }
 
     /**
-     * @param  array  $input
+     * @param  array $input array of digits
      * @return int
      */
     public function getUniqueValue(array $input): int
@@ -35,7 +35,7 @@ class Arrays implements ArraysInterface
     }
 
     /**
-     * @param  array  $input
+     * @param  array $input Array of arrays
      * @return array
      */
     public function groupByTag(array $input): array
