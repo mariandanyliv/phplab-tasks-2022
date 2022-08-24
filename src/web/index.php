@@ -13,11 +13,11 @@ $airports = require './airports.php';
 $get = $_GET;
 
 if (isset($_GET['filter_by_first_letter'])) {
-    $airports = filterByFirstLetter($airports);
+    $airports = filterByFirstLetter($airports, $get['filter_by_first_letter']);
 }
 
 if (isset($_GET['filter_by_state'])) {
-    $airports = filterByState($airports);
+    $airports = filterByState($airports, $get['filter_by_state']);
 }
 
 // Sorting
@@ -28,7 +28,7 @@ if (isset($_GET['filter_by_state'])) {
  */
 
 if (isset($_GET['sort'])) {
-    $airports = sortAirports($airports);
+    $airports = sortAirports($airports, $get['sort']);
 }
 
 // Pagination
@@ -38,11 +38,7 @@ if (isset($_GET['sort'])) {
  * (see Pagination task below)
  */
 
-if (isset($_GET['page'])) {
-    $currentPage = intval($_GET['page']);
-} else {
-    $currentPage = 1;
-}
+isset($_GET['page']) ? $currentPage = intval($_GET['page']) :   $currentPage = 1;
 
 $airportsPerPage = 5;
 

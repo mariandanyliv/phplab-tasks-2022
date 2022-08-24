@@ -9,7 +9,7 @@
  * @param  array  $airports
  * @return string[]
  */
-function getUniqueFirstLetters(array $airports)
+function getUniqueFirstLetters(array $airports): array
 {
     $firstLetters = [];
 
@@ -22,81 +22,108 @@ function getUniqueFirstLetters(array $airports)
     return array_unique($firstLetters);
 }
 
-function filterByFirstLetter($airports)
+/**
+ * @param array $airports
+ * @param string $filterByFirstLetter
+ * @return array
+ */
+function filterByFirstLetter(array $airports, string $filterByFirstLetter): array
 {
-    $airports_by_letter = [];
+    $airportsByLetter = [];
 
-    foreach ($airports as $key => $airport) {
-        if ($airport['name'][0] == $_GET['filter_by_first_letter']) {
-            $airports_by_letter[] = $airport;
+    foreach ($airports as $airport) {
+        if ($airport['name'][0] == $filterByFirstLetter) {
+            $airportsByLetter[] = $airport;
         }
     }
 
-    return $airports_by_letter;
+    return $airportsByLetter;
 }
 
-function filterByState($airports)
+/**
+ * @param array $airports
+ * @param string $filterByState
+ * @return array
+ */
+function filterByState(array $airports, string $filterByState): array
 {
-    $airports_by_state = [];
+    $airportsByState = [];
 
     foreach ($airports as $key => $airport) {
-        if ($airport['state'][0] == $_GET['filter_by_state']) {
-            $airports_by_state[] = $airport;
+        if ($airport['state'][0] === $filterByState) {
+            $airportsByState[] = $airport;
         }
     }
 
-    return $airports_by_state;
+    return $airportsByState;
 }
 
-function sortAirports($airports)
+/**
+ * @param array $airports
+ * @param string $sortAirports
+ * @return array
+ */
+function sortAirports(array $airports, string $sortAirports): array
 {
-    $airports_sort = [];
+    $airportsSort = [];
 
     foreach ($airports as $key => $airport) {
-        $airports_sort[$key] = $airport[$_GET['sort']];
+        $airportsSort[$key] = $airport[$sortAirports];
     }
 
     if (!empty($airports_sort)) {
-        array_multisort($airports_sort, SORT_ASC, $airports);
+        array_multisort($airportsSort, SORT_ASC, $airports);
     }
 
     return $airports;
 }
 
-function getLink($get, array $link = [])
+/**
+ * @param array $get
+ * @param array $link
+ * @return string
+ */
+function getLink(array $get, array $link = []): string
 {
-    $get_params = [];
+    $getParams = [];
 
     if (isset($get['filter_by_first_letter'])) {
-        $get_params['filter_by_first_letter'] = $get['filter_by_first_letter'];
+        $getParams['filter_by_first_letter'] = $get['filter_by_first_letter'];
     }
 
     if (isset($get['filter_by_state'])) {
-        $get_params['filter_by_state'] = $get['filter_by_state'];
+        $getParams['filter_by_state'] = $get['filter_by_state'];
     }
 
     if (isset($get['sort'])) {
-        $get_params['sort'] = $get['sort'];
+        $getParams['sort'] = $get['sort'];
     }
 
-    $get_params = array_replace($get_params, $link);
+    $getParams = array_replace($getParams, $link);
 
     $url = '';
-    foreach ($get_params as $key => $param) {
+    foreach ($getParams as $key => $param) {
         $url .= "&$key=$param";
     }
 
     return $url;
 }
 
-function pagination(array $airports, int $airportsPerPage, int $currentPage, int $pageQty)
+/**
+ * @param array $airports
+ * @param int $airportsPerPage
+ * @param int $currentPage
+ * @param int $pageQty
+ * @return array
+ */
+function pagination(array $airports, int $airportsPerPage, int $currentPage, int $pageQty): array
 {
     if ($currentPage >= 1 && $currentPage <= $pageQty) {
         $from = ($currentPage - 1) * $airportsPerPage;
         $airports = array_slice($airports, $from, $airportsPerPage);
 
     } else {
-        $airports = [];
+       throw new InvalidArgumentException();
     }
 
     return $airports;
