@@ -6,7 +6,6 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use functions\functions;
 
-
 class CountArgumentsWrapperTest extends TestCase
 {
     protected Functions $functions;
