@@ -6,12 +6,14 @@ class FilmixParserStrategy implements ParserInterface
 {
     use ParserData;
 
+    private const TITLE = '|<h1?.*>(.*)<\/h1>|';
+
+    private const POSTER = '<.+src="([^"]+)".+itemprop="image".+>';
+
+    private const DESCRIPTIONS = '|class="full-story">(.*?)<\/|';
+
     private string $content;
 
-    /**
-     * @param string $siteContent
-     * @return $this
-     */
     public function parseContent(string $siteContent): self
     {
         $this->content = $siteContent;
@@ -23,32 +25,23 @@ class FilmixParserStrategy implements ParserInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    private function parsTitle(): string
+    private function parsTitle()
     {
-        preg_match_all('|<h1?.*>(.*)<\/h1>|', $this->content, $matches);
+        preg_match_all(self::TITLE, $this->content, $matches);
 
         return $matches[1][0];
     }
 
-    /**
-     * @return string
-     */
-    private function parsPoster(): string
+    private function parsPoster()
     {
-        preg_match_all('<.+src="([^"]+)".+itemprop="image".+>', $this->content, $matches);
+        preg_match_all(self::POSTER, $this->content, $matches);
 
         return $matches[1][0];
     }
 
-    /**
-     * @return string
-     */
-    private function parsDescriptions(): string
+    private function parsDescriptions()
     {
-        preg_match_all('|class="full-story">(.*?)<\/|', $this->content, $matches);
+        preg_match_all(self::DESCRIPTIONS, $this->content, $matches);
 
         return $matches[1][0];
     }

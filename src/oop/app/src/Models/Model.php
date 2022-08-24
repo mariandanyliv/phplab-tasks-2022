@@ -6,18 +6,12 @@ use BadMethodCallException;
 
 abstract class Model
 {
-    /**
-     * @param array $rawData
-     */
     public function __construct(array $rawData)
     {
         $this->call($rawData);
     }
 
     /**
-     * Check setters in model
-     * @param array $rawData
-     * @return void
      * @throws BadMethodCallException
      */
     private function call(array $rawData): void

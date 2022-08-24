@@ -8,6 +8,8 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
 {
     use ParserData;
 
+    private const DOMAIN = '/^(?:http:\/\/|www\.|https:\/\/)([^\/]+)/';
+
     private Crawler $adapter;
 
     public function __construct()
@@ -15,10 +17,6 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
         $this->adapter = new Crawler();
     }
 
-    /**
-     * @param string $siteContent
-     * @return $this
-     */
     public function parseContent(string $siteContent): self
     {
         $this->adapter->addContent($siteContent);
@@ -30,19 +28,11 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
         return $this;
     }
 
-    /**
-     * @param string $filter
-     * @return string
-     */
     private function parsTitle(string $filter): string
     {
         return $this->adapter->filter($filter)->html();
     }
 
-    /**
-     * @param string $filter
-     * @return string
-     */
     private function parsPoster(string $filter): string
     {
         $imgSrc = $this->adapter->filter($filter)->filter('img')->attr('src');
@@ -66,15 +56,10 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
         return $this->adapter->filter($filter)->html();
     }
 
-    /**
-     * Use this method if img href returns without domain
-     * @param string $filter
-     * @return string
-     */
     private function defineDomain(string $filter): string
     {
         $link = $this->adapter->filter($filter)->attr('href');
-        preg_match('/^(?:http:\/\/|www\.|https:\/\/)([^\/]+)/', $link, $matches);
+        preg_match(self::DOMAIN, $link, $matches);
 
         return $matches[0];
     }

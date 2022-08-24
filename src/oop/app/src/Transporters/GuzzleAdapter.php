@@ -9,6 +9,7 @@ use src\oop\app\src\Encoder\Encoder;
 class GuzzleAdapter implements TransportInterface
 {
     private Guzzle $adapter;
+
     private Encoder $encoder;
 
     public function __construct()
@@ -18,8 +19,6 @@ class GuzzleAdapter implements TransportInterface
     }
 
     /**
-     * @param string $url
-     * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getContent(string $url): string
@@ -33,8 +32,6 @@ class GuzzleAdapter implements TransportInterface
     }
 
     /**
-     * @param string $url
-     * @return Response
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function request(string $url): Response

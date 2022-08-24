@@ -5,11 +5,12 @@ namespace src\oop\app\src\Parsers;
 trait ParserData
 {
     private string $title;
+
     private string $poster;
+
     private string $description;
 
     /**
-     * Converting parsed data into an array
      * @return array
      */
     public function toArray(): array

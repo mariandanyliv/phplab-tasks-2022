@@ -4,27 +4,20 @@ namespace src\oop\app\src\Encoder;
 
 class Encoder
 {
-    /**
-     * @param string $content
-     * @param string $contentType
-     * @return string
-     */
+    private const PATTERN = '/charset=(.+)/';
+
     public function encode(string $content, string $contentType): string
     {
-        preg_match('/charset=(.+)/', $contentType, $matches);
+        preg_match(self::PATTERN, $contentType, $matches);
 
-        if ($this->isUTF8($matches[1])) {
+        if ($this->isUTF8(isset($matches[1]))) {
             return iconv($matches[1], mb_detect_encoding($content), $content);
         }
 
         return $content;
     }
 
-    /**
-     * @param $charset
-     * @return bool
-     */
-    private function isUTF8($charset): bool
+    private function isUTF8(string $charset): bool
     {
         return mb_strtolower($charset) !== 'utf-8';
     }

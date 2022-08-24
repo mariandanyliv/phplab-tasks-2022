@@ -8,6 +8,7 @@ use src\oop\app\src\Encoder\Encoder;
 class CurlStrategy implements TransportInterface
 {
     private CurlHandle $ch;
+
     private Encoder $encoder;
 
     private array $options = [
@@ -26,10 +27,6 @@ class CurlStrategy implements TransportInterface
         $this->encoder = new Encoder();
     }
 
-    /**
-     * @param string $url
-     * @return string
-     */
     public function getContent(string $url): string
     {
         $this->curlInit($url);
@@ -39,10 +36,6 @@ class CurlStrategy implements TransportInterface
         return $dom;
     }
 
-    /**
-     * @param string $url
-     * @return void
-     */
     private function curlInit(string $url): void
     {
         $ch = curl_init();

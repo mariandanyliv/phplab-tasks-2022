@@ -18,6 +18,7 @@ use src\oop\app\src\Transporters\TransportInterface;
 class Scrapper
 {
     private TransportInterface $transport;
+
     private ParserInterface $parser;
 
     /**
@@ -30,10 +31,6 @@ class Scrapper
         $this->parser = $parser;
     }
 
-    /**
-     * @param string $uri
-     * @return MovieInterface
-     */
     public function getMovie(string $uri): MovieInterface
     {
         $dom = $this->transport->getContent($uri);
