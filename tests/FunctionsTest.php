@@ -40,11 +40,23 @@ class FunctionsTest extends TestCase
         ];
     }
 
-    public function testSayHelloArgumentWrapperNegative()
+    /**
+     * @dataProvider  negativeSayHelloArgumentWrapperDaraProvider
+     */
+    public function testSayHelloArgumentWrapperNegative($input)
     {
         $this->expectException(InvalidArgumentException::class);
 
         $this->function->sayHelloArgumentWrapper(['Say Hello']);
+
+    }
+
+    public function negativeSayHelloArgumentWrapperDaraProvider()
+    {
+        return [
+            ['Say Hello'],
+            [null]
+        ];
     }
 
     public function testSayHelloArgumentWrapperPositive()
@@ -86,10 +98,21 @@ class FunctionsTest extends TestCase
         ];
     }
 
-    public function testCountArgumentsWrapperNegative()
+    /**
+     * @dataProvider negativeCountArgumentWrapperDataProvider
+     */
+    public function testCountArgumentsWrapperNegative($input, $args)
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $this->function->countArgumentsWrapper('Hello', [1, 2, 3]);
+        $this->function->countArgumentsWrapper($input, $args);
+    }
+
+    public function negativeCountArgumentWrapperDataProvider()
+    {
+        return [
+            ['Hello', [1, 2, 3]],
+            [123, null]
+        ];
     }
 }
