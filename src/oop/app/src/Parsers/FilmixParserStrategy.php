@@ -29,7 +29,7 @@ class FilmixParserStrategy implements ParserInterface
     {
         preg_match_all(self::TITLE_PATTERN, $this->content, $matches);
 
-        return $matches[1][0];
+        return (isset($matches[1][0])) ? $matches[1][0] : null;
     }
 
     private function parsPoster()
