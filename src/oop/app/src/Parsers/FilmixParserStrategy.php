@@ -43,6 +43,6 @@ class FilmixParserStrategy implements ParserInterface
     {
         preg_match_all(self::DESCRIPTIONS_PATTERN, $this->content, $matches);
 
-        return (isset($matches[1][0]) ? $matches[1][0] : null;
+        return (isset($matches[1][0])) ? $matches[1][0] : null;
     }
 }
