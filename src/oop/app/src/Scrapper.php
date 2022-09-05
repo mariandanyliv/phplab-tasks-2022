@@ -21,10 +21,6 @@ class Scrapper
 
     private ParserInterface $parser;
 
-    /**
-     * @param TransportInterface $transport
-     * @param ParserInterface $parser
-     */
     public function __construct(TransportInterface $transport, ParserInterface $parser)
     {
         $this->transport = $transport;

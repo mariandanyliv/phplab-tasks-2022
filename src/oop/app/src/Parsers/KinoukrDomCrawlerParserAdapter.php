@@ -8,7 +8,7 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
 {
     use ParserData;
 
-    private const DOMAIN = '/^(?:http:\/\/|www\.|https:\/\/)([^\/]+)/';
+    private const DOMAIN_PATTERN = '/^(?:http:\/\/|www\.|https:\/\/)([^\/]+)/';
 
     private Crawler $adapter;
 
@@ -59,7 +59,7 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
     private function defineDomain(string $filter): string
     {
         $link = $this->adapter->filter($filter)->attr('href');
-        preg_match(self::DOMAIN, $link, $matches);
+        preg_match(self::DOMAIN_PATTERN, $link, $matches);
 
         return $matches[0];
     }
