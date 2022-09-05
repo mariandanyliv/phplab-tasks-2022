@@ -10,14 +10,14 @@ $airports = require './airports.php';
  * (see Filtering tasks 1 and 2 below)
  */
 
-$get = $_GET;
+
 
 if (isset($_GET['filter_by_first_letter'])) {
-    $airports = filterByFirstLetter($airports, $get['filter_by_first_letter']);
+    $airports = filterByFirstLetter($airports, $_GET['filter_by_first_letter']);
 }
 
 if (isset($_GET['filter_by_state'])) {
-    $airports = filterByState($airports, $get['filter_by_state']);
+    $airports = filterByState($airports, $_GET['filter_by_state']);
 }
 
 // Sorting
@@ -28,7 +28,7 @@ if (isset($_GET['filter_by_state'])) {
  */
 
 if (isset($_GET['sort'])) {
-    $airports = sortAirports($airports, $get['sort']);
+    $airports = sortAirports($airports, $_GET['sort']);
 }
 
 // Pagination
@@ -38,7 +38,7 @@ if (isset($_GET['sort'])) {
  * (see Pagination task below)
  */
 
-isset($_GET['page']) ? $currentPage = intval($_GET['page']) :   $currentPage = 1;
+$currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
 $airportsPerPage = 5;
 
@@ -77,7 +77,7 @@ $airports = pagination($airports, $airportsPerPage, $currentPage, $pageQty);
 
         <?php foreach (getUniqueFirstLetters(require './airports.php') as $letter): ?>
 
-            <a href="?page=1<?php echo getLink($get, ['filter_by_first_letter' => $letter]) ?>"><?= $letter ?></a>
+            <a href="?page=1<?php echo getLink($_GET, ['filter_by_first_letter' => $letter]) ?>"><?= $letter ?></a>
 
         <?php endforeach; ?>
         <a href="/" class="float-right">Reset all filters</a>
@@ -96,13 +96,13 @@ $airports = pagination($airports, $airportsPerPage, $currentPage, $pageQty);
     <table class="table">
         <thead>
         <tr>
-            <th scope="col"><a href="?page=<?php echo $_GET['page'] . getLink($get, ['sort' => 'name']) ?>">Name</a>
+            <th scope="col"><a href="?page=<?php echo $_GET['page'] . getLink($_GET, ['sort' => 'name']) ?>">Name</a>
             </th>
-            <th scope="col"><a href="?page=<?php echo $_GET['page'] . getLink($get, ['sort' => 'code']) ?>">Code</a>
+            <th scope="col"><a href="?page=<?php echo $_GET['page'] . getLink($_GET, ['sort' => 'code']) ?>">Code</a>
             </th>
-            <th scope="col"><a href="?page=<?php echo $_GET['page'] . getLink($get, ['sort' => 'state']) ?>">State</a>
+            <th scope="col"><a href="?page=<?php echo $_GET['page'] . getLink($_GET, ['sort' => 'state']) ?>">State</a>
             </th>
-            <th scope="col"><a href="?page=<?php echo $_GET['page'] . getLink($get, ['sort' => 'city']) ?>">City</a>
+            <th scope="col"><a href="?page=<?php echo $_GET['page'] . getLink($_GET, ['sort' => 'city']) ?>">City</a>
             </th>
             <th scope="col">Address</th>
             <th scope="col">Timezone</th>
@@ -124,7 +124,7 @@ $airports = pagination($airports, $airportsPerPage, $currentPage, $pageQty);
             <td><?= $airport['name'] ?></td>
             <td><?= $airport['code'] ?></td>
             <td>
-                <a href="?page=1<?php echo getLink($get, ['filter_by_state' => $airport['state'][0]]) ?>">
+                <a href="?page=1<?php echo getLink($_GET, ['filter_by_state' => $airport['state'][0]]) ?>">
                     <?= $airport['state'] ?></a>
             </td>
             <td><?= $airport['city'] ?></td>
@@ -151,9 +151,9 @@ $airports = pagination($airports, $airportsPerPage, $currentPage, $pageQty);
 
                 <?php if ($i == $currentPage): ?>
                     <li class="page-item active"><a class="page-link"
-                                                    href="?page=<?= $i . getLink($get) ?>"><?= $i ?></a></li>
+                                                    href="?page=<?= $i . getLink($_GET) ?>"><?= $i ?></a></li>
                 <?php else: ?>
-                    <li class="page-item"><a class="page-link" href="?page=<?= $i . getLink($get) ?>"><?= $i ?></a></li>
+                    <li class="page-item"><a class="page-link" href="?page=<?= $i . getLink($_GET) ?>"><?= $i ?></a></li>
                 <?php endif ?>
 
             <?php endfor ?>
