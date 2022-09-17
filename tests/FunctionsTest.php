@@ -47,7 +47,7 @@ class FunctionsTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $this->function->sayHelloArgumentWrapper(['Say Hello']);
+        $this->function->sayHelloArgumentWrapper($input);
 
     }
 
