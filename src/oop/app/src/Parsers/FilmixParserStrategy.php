@@ -29,20 +29,20 @@ class FilmixParserStrategy implements ParserInterface
     {
         preg_match_all(self::TITLE, $this->content, $matches);
 
-        return $matches[1][0];
+        return $matches[1][0] ?? false;
     }
 
     private function parsPoster()
     {
         preg_match_all(self::POSTER, $this->content, $matches);
 
-        return $matches[1][0];
+        return  $matches[1][0] ?? false;
     }
 
     private function parsDescriptions()
     {
         preg_match_all(self::DESCRIPTIONS, $this->content, $matches);
 
-        return $matches[1][0];
+        return  $matches[1][0] ?? false;
     }
 }

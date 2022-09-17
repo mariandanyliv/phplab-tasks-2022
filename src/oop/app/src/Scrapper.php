@@ -17,18 +17,18 @@ use src\oop\app\src\Transporters\TransportInterface;
 
 class Scrapper
 {
-    private TransportInterface $transport;
+    private $transport;
 
-    private ParserInterface $parser;
+    private $parser;
 
     /**
      * @param TransportInterface $transport
      * @param ParserInterface $parser
      */
-    public function __construct(TransportInterface $transport, ParserInterface $parser)
+    public function __construct(private TransportInterface $transports, private ParserInterface $parsers)
     {
-        $this->transport = $transport;
-        $this->parser = $parser;
+        $this->transport = $transports;
+        $this->parser = $parsers;
     }
 
     public function getMovie(string $uri): MovieInterface
