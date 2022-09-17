@@ -6,8 +6,7 @@
  *
  * Create a PhpUnit test (GetUniqueFirstLettersTest) which will check this behavior
  *
- * @param  array  $airports
- * @return string[]
+ * @param  array[]  $airports
  */
 function getUniqueFirstLetters(array $airports): array
 {
@@ -23,16 +22,14 @@ function getUniqueFirstLetters(array $airports): array
 }
 
 /**
- * @param array $airports
- * @param string $filterByFirstLetter
- * @return array
+ * @param array[string] $airports
  */
 function filterByFirstLetter(array $airports, string $filterByFirstLetter): array
 {
     $airportsByLetter = [];
 
     foreach ($airports as $airport) {
-        if ($airport['name'][0] == $filterByFirstLetter) {
+        if ($airport['name'][0] === $filterByFirstLetter) {
             $airportsByLetter[] = $airport;
         }
     }
@@ -41,9 +38,8 @@ function filterByFirstLetter(array $airports, string $filterByFirstLetter): arra
 }
 
 /**
- * @param array $airports
- * @param string $filterByState
- * @return array
+ * @param array[string] $airports
+ * @return array[string]
  */
 function filterByState(array $airports, string $filterByState): array
 {
@@ -59,9 +55,8 @@ function filterByState(array $airports, string $filterByState): array
 }
 
 /**
- * @param array $airports
- * @param string $sortAirports
- * @return array
+ * @param array[string] $airports
+ * @return array[string]
  */
 function sortAirports(array $airports, string $sortAirports): array
 {
@@ -79,9 +74,8 @@ function sortAirports(array $airports, string $sortAirports): array
 }
 
 /**
- * @param array $get
- * @param array $link
- * @return string
+ * @param array[string] $get
+ * @param array[string] $link
  */
 function getLink(array $get, array $link = []): string
 {
@@ -110,11 +104,7 @@ function getLink(array $get, array $link = []): string
 }
 
 /**
- * @param array $airports
- * @param int $airportsPerPage
- * @param int $currentPage
- * @param int $pageQty
- * @return array
+ * @param array[string] $airports
  */
 function pagination(array $airports, int $airportsPerPage, int $currentPage, int $pageQty): array
 {
