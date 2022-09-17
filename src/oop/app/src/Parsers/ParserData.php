@@ -11,7 +11,7 @@ trait ParserData
     private string $description;
 
     /**
-     * @return array
+     * @return array[string]
      */
     public function toArray(): array
     {

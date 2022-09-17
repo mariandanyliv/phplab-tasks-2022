@@ -10,7 +10,7 @@ class Encoder
     {
         preg_match(self::PATTERN, $contentType, $matches);
 
-        if ($this->isUTF8(isset($matches[1]))) {
+        if (isset($matches[1]) && $this->isUTF8($matches[1])) {
             return iconv($matches[1], mb_detect_encoding($content), $content);
         }
 
