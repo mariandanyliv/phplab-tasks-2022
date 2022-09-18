@@ -10,11 +10,9 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
 
     private const DOMAIN_PATTERN = '/^(?:http:\/\/|www\.|https:\/\/)([^\/]+)/';
 
-    private Crawler $adapter;
-
-    public function __construct()
+    public function __construct(private Crawler $adapter)
     {
-        $this->adapter = new Crawler();
+
     }
 
     public function parseContent(string $siteContent): self

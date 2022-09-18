@@ -9,14 +9,9 @@ use \GuzzleHttp\Exception\GuzzleException;
 
 class GuzzleAdapter implements TransportInterface
 {
-    private Guzzle $adapter;
-
-    private Encoder $encoder;
-
-    public function __construct()
+    public function __construct(private Guzzle $adapter, private Encoder $encoder)
     {
-        $this->adapter = new Guzzle();
-        $this->encoder = new Encoder();
+
     }
 
     /**

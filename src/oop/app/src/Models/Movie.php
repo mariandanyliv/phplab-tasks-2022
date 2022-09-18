@@ -10,9 +10,6 @@ class Movie extends Model implements MovieInterface
 
     private string $description;
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
@@ -23,9 +20,6 @@ class Movie extends Model implements MovieInterface
         $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
     public function getPoster(): string
     {
         return $this->poster;
@@ -36,9 +30,6 @@ class Movie extends Model implements MovieInterface
         $this->poster = $poster;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;

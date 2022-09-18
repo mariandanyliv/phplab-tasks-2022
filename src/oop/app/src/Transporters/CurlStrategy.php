@@ -7,10 +7,6 @@ use src\oop\app\src\Encoder\Encoder;
 
 class CurlStrategy implements TransportInterface
 {
-    private CurlHandle $ch;
-
-    private Encoder $encoder;
-
     private array $options = [
         CURLOPT_HEADER          => true,
         CURLOPT_FOLLOWLOCATION  => true,
@@ -18,11 +14,12 @@ class CurlStrategy implements TransportInterface
     ];
 
     private string $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:50.0) Gecko/20100101 Firefox/90.0';
+
     private array $httpHeader = [
         'Content-Type: text/html; charset=windows-1251',
     ];
 
-    public function __construct()
+    public function __construct(private CurlHandle $ch, private Encoder $encoder)
     {
         $this->encoder = new Encoder();
     }
@@ -48,17 +45,11 @@ class CurlStrategy implements TransportInterface
         $this->ch = $ch;
     }
 
-    /**
-     * @return string
-     */
     private function getDom(): string
     {
         return curl_exec($this->ch);
     }
 
-    /**
-     * @return void
-     */
     private function curlClose(): void
     {
         curl_close($this->ch);
