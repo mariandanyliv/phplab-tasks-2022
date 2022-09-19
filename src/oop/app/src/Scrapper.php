@@ -7,3 +7,25 @@
  * Note: Dont forget to create variables for TransportInterface and ParserInterface objects.
  * Note: Also you can add your methods if needed.
  */
+
+namespace src\oop\app\src;
+
+use src\oop\app\src\Models\Movie;
+use src\oop\app\src\Models\MovieInterface;
+use src\oop\app\src\Parsers\ParserInterface;
+use src\oop\app\src\Transporters\TransportInterface;
+
+class Scrapper
+{
+    public function __construct(private TransportInterface $transport, private ParserInterface $parser)
+    {
+
+    }
+
+    public function getMovie(string $uri): MovieInterface
+    {
+        $dom = $this->transport->getContent($uri);
+
+        return new Movie($this->parser->parseContent($dom)->toArray());
+    }
+}
