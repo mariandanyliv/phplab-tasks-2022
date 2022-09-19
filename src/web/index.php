@@ -10,6 +10,16 @@ $airports = require './airports.php';
  * (see Filtering tasks 1 and 2 below)
  */
 
+$get = $_GET;
+
+if (isset($_GET['filter_by_first_letter'])) {
+    $airports = filterByFirstLetter($airports, $get['filter_by_first_letter']);
+}
+
+if (isset($_GET['filter_by_state'])) {
+    $airports = filterByState($airports, $get['filter_by_state']);
+}
+
 // Sorting
 /**
  * Here you need to check $_GET request if it has sorting key
@@ -17,12 +27,25 @@ $airports = require './airports.php';
  * (see Sorting task below)
  */
 
+if (isset($_GET['sort'])) {
+    $airports = sortAirports($airports, $get['sort']);
+}
+
 // Pagination
 /**
  * Here you need to check $_GET request if it has pagination key
  * and apply pagination logic
  * (see Pagination task below)
  */
+
+isset($_GET['page']) ? $currentPage = intval($_GET['page']) :   $currentPage = 1;
+
+$airportsPerPage = 5;
+
+$pageQty = ceil(count($airports) / $airportsPerPage);
+
+$airports = pagination($airports, $airportsPerPage, $currentPage, $pageQty);
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -53,9 +76,10 @@ $airports = require './airports.php';
         Filter by first letter:
 
         <?php foreach (getUniqueFirstLetters(require './airports.php') as $letter): ?>
-            <a href="#"><?= $letter ?></a>
-        <?php endforeach; ?>
 
+            <a href="?page=1<?php echo getLink($get, ['filter_by_first_letter' => $letter]) ?>"><?= $letter ?></a>
+
+        <?php endforeach; ?>
         <a href="/" class="float-right">Reset all filters</a>
     </div>
 
@@ -72,10 +96,14 @@ $airports = require './airports.php';
     <table class="table">
         <thead>
         <tr>
-            <th scope="col"><a href="#">Name</a></th>
-            <th scope="col"><a href="#">Code</a></th>
-            <th scope="col"><a href="#">State</a></th>
-            <th scope="col"><a href="#">City</a></th>
+            <th scope="col"><a href="?page=<?php echo $_GET['page'] . getLink($get, ['sort' => 'name']) ?>">Name</a>
+            </th>
+            <th scope="col"><a href="?page=<?php echo $_GET['page'] . getLink($get, ['sort' => 'code']) ?>">Code</a>
+            </th>
+            <th scope="col"><a href="?page=<?php echo $_GET['page'] . getLink($get, ['sort' => 'state']) ?>">State</a>
+            </th>
+            <th scope="col"><a href="?page=<?php echo $_GET['page'] . getLink($get, ['sort' => 'city']) ?>">City</a>
+            </th>
             <th scope="col">Address</th>
             <th scope="col">Timezone</th>
         </tr>
@@ -95,7 +123,10 @@ $airports = require './airports.php';
         <tr>
             <td><?= $airport['name'] ?></td>
             <td><?= $airport['code'] ?></td>
-            <td><a href="#"><?= $airport['state'] ?></a></td>
+            <td>
+                <a href="?page=1<?php echo getLink($get, ['filter_by_state' => $airport['state'][0]]) ?>">
+                    <?= $airport['state'] ?></a>
+            </td>
             <td><?= $airport['city'] ?></td>
             <td><?= $airport['address'] ?></td>
             <td><?= $airport['timezone'] ?></td>
@@ -114,10 +145,18 @@ $airports = require './airports.php';
          - when you apply pagination - all filters and sorting are not reset
     -->
     <nav aria-label="Navigation">
-        <ul class="pagination justify-content-center">
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <ul class="pagination justify-content-center d-flex flex-wrap">
+
+            <?php for ($i = 1; $i <= $pageQty; $i++): ?>
+
+                <?php if ($i == $currentPage): ?>
+                    <li class="page-item active"><a class="page-link"
+                                                    href="?page=<?= $i . getLink($get) ?>"><?= $i ?></a></li>
+                <?php else: ?>
+                    <li class="page-item"><a class="page-link" href="?page=<?= $i . getLink($get) ?>"><?= $i ?></a></li>
+                <?php endif ?>
+
+            <?php endfor ?>
         </ul>
     </nav>
 
