@@ -39,7 +39,6 @@ function filterByFirstLetter(array $airports, string $filterByFirstLetter): arra
 
 /**
  * @param array[string] $airports
- * @return array[string]
  */
 function filterByState(array $airports, string $filterByState): array
 {
@@ -56,7 +55,6 @@ function filterByState(array $airports, string $filterByState): array
 
 /**
  * @param array[string] $airports
- * @return array[string]
  */
 function sortAirports(array $airports, string $sortAirports): array
 {
