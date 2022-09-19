@@ -10,6 +10,12 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
 
     private const DOMAIN_PATTERN = '/^(?:http:\/\/|www\.|https:\/\/)([^\/]+)/';
 
+    private const PARS_TITLE = 'h1';
+
+    private const PARS_POSTER = '.fposter > a';
+
+    private const PARS_DESCRIPTION = 'fdesc';
+
     public function __construct(private Crawler $adapter)
     {
 
@@ -19,9 +25,9 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
     {
         $this->adapter->addContent($siteContent);
 
-        $this->title = $this->parsTitle('h1');
-        $this->poster = $this->parsPoster('.fposter > a');
-        $this->description = $this->parsDescription('#fdesc');
+        $this->title = $this->parsTitle(self::PARS_TITLE);
+        $this->poster = $this->parsPoster(self::PARS_POSTER);
+        $this->description = $this->parsDescription(self::PARS_DESCRIPTION);
 
         return $this;
     }
