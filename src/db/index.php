@@ -33,7 +33,7 @@ $sort = '';
  * where A - requested filter value
  */
 if (isset($_GET['filter_by_first_letter'])) {
-    $filterByFirstLetter .= " WHERE a.`name` LIKE '" . $_GET['filter_by_first_letter'] . "%'";
+    $filterByFirstLetter .= "LIKE '" . $_GET['filter_by_first_letter'] . "%'";
 }
 if (isset($_GET['filter_by_state'])) {
     $filterByState = (!$filterByFirstLetter) ? ' WHERE ' : ' AND ';
@@ -75,7 +75,7 @@ $currentPage = ' LIMIT ' . PAGE_SIZE * ($_GET['page'] - 1) . ', ' . PAGE_SIZE;
  */
 $airportsSql .= $from . $filterByFirstLetter . $filterByState . $sort . $currentPage . ';';
 $sth = $pdo->query($airportsSql);
-$airports = $sth->fetchAll(\PDO::FETCH_ASSOC);
+$airports = $sth->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!doctype html>
 <html lang="en">
